@@ -16,24 +16,28 @@
       margin: 10px;
       background: #f8f9fa;
     }
+
+    .titulo-envolvido {
+      background: #072d64;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .titulo-veiculo {
+      background: #158606;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
     h2 {
       background: #dc3545;
       color: white;
       padding: 10px;
       border-radius: 5px;
     }
-    h3 {
-      background: #158606;
-      color: white;
-      padding: 10px;
-      border-radius: 5px;
-    }
-    h4 {
-      background: #072d64;
-      color: white;
-      padding: 10px;
-      border-radius: 5px;
-    }
+ 
     label {
       display: block;
       margin-top: 10px;
@@ -185,6 +189,7 @@
   <option>Não</option>
 </select>
 
+
 <h4>Envolvidos no Sinistro</h4>
 
     <label>Quantidade de envolvidos</label>
@@ -265,7 +270,7 @@ function gerarEnvolvidos() {
   for (let i = 1; i <= qtd; i++) {
     area.innerHTML += `
       <div>
-        <h3>Envolvido ${i}</h3>
+        <h3 class="titulo-envolvido">Envolvido ${i}</h3>
 
         <label>Categoria do Envolvido ${i}</label>
         <select id="categoria${i}">
@@ -291,7 +296,7 @@ function gerarVeiculosEnvolvidos() {
   for (let i = 1; i <= qtd; i++) {
     area.innerHTML += `
       <div>
-        <h3>Veiculo ${i}</h3>
+        <h3 class="titulo-veiculo">Veículo ${i}</h3>
 
         <label>Veículo ${i}</label>
         <select id="tipo${i}" onchange="mostrarOutro(${i})">
