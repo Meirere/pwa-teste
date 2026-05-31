@@ -48,6 +48,12 @@
     .btn-limpar {
       background: #6c757d;
     }
+    .btn-veiculos {
+      background: #158606;
+    }
+    .btn-envolvidos {
+      background: #072d64;
+    }
   </style>
 </head>
 
@@ -185,19 +191,19 @@
 
 <h2>Envolvidos no Sinistro</h2>
 
-    <label>Quantidade de envolvidos:</label>
+    <label>Quantidade de envolvidos</label>
     <input type="number" id="qtdEnvolvidos" min="1">
 
-    <button type="button" onclick="gerarEnvolvidos()">Gerar envolvidos</button>
+    <button type="button" class="btn-envolvidos" onclick="gerarEnvolvidos()">Gerar envolvidos</button>
 
     <div id="areaEnvolvidos"></div>
 
 <h2>Veículos Envolvidos</h2>
 
-    <label>Quantidade de veículos:</label>
+    <label>Quantidade de veículos</label>
     <input type="number" id="veicEnvolvidos" min="1">
 
-    <button type="button" onclick="gerarVeiculosEnvolvidos()">Gerar veículos envolvidos</button>
+    <button type="button" class="btn-veiculos" onclick="gerarVeiculosEnvolvidos()">Gerar veículos envolvidos</button>
 
     <div id="veiculosEnvolvidos"></div>
 
@@ -215,6 +221,7 @@
 <button type="button" onclick="gerarPDF()">Gerar PDF</button>
 
 </form>
+
 
 <script>
 
@@ -234,6 +241,25 @@ campos.forEach(campo => {
 
 });
 
+function ativarSalvamento(seletor) {
+  document.querySelectorAll(`${seletor} input, ${seletor} select, ${seletor} textarea`)
+    .forEach(campo => {
+      const valorSalvo = localStorage.getItem(campo.id);
+
+      if (valorSalvo !== null) {
+        campo.value = valorSalvo;
+      }
+
+      campo.addEventListener("input", () => {
+        localStorage.setItem(campo.id, campo.value);
+      });
+
+      campo.addEventListener("change", () => {
+        localStorage.setItem(campo.id, campo.value);
+      });
+    });
+}
+
 function gerarEnvolvidos() {
   const qtd = Number(document.getElementById("qtdEnvolvidos").value);
   const area = document.getElementById("areaEnvolvidos");
@@ -245,18 +271,19 @@ function gerarEnvolvidos() {
       <div>
         <h3>Envolvido ${i}</h3>
 
-        <label>Categoria do Envolvido ${i}:</label>
+        <label>Categoria do Envolvido ${i}</label>
         <select id="categoria${i}">
           <option>Condutor</option>
           <option>Passageiro</option>
           <option>Pedestre</option>
         </select>
 
-        <label>Nome do Envolvido ${i}:</label>
+        <label>Nome do Envolvido ${i}</label>
         <input type="text" id="nome${i}">
       </div>
     `;
   }
+  ativarSalvamento("#areaEnvolvidos");
 }
 
 function gerarVeiculosEnvolvidos() {
@@ -270,7 +297,7 @@ function gerarVeiculosEnvolvidos() {
       <div>
         <h3>Veiculo ${i}</h3>
 
-        <label>Veículo ${i}:</label>
+        <label>Veículo ${i}</label>
         <select id="tipo${i}" onchange="mostrarOutro(${i})">
           <option>Caminhão</option>
           <option>Automóvel</option>
@@ -278,18 +305,22 @@ function gerarVeiculosEnvolvidos() {
           <option>Outro</option>
         </select>
         <div id="outroDiv${i}" style="display:none;">
-          <label>Especificar veículo:</label>
-          <input type="text" id="outroTipo${i}">
+          <label>Tipo de veículo:</label>
+          <input type="text" id="outroTipo${i}" placeholder="automóvel, carroça, bicicleta, etc" >
         </div>
         
-        <label>Sentido de tráfego veículo${i}:</label>
+        <label>Sentido de tráfego veículo${i}</label>
         <input type="text" id="sentidoVeic${i}">
+
+        <label>Vestígio veículo${i}</label>
+        <input type="text" id="vestigios${i}">
         
-        <label>Placa do Envolvido ${i}:</label>
+        <label>Placa do Envolvido ${i}</label>
         <input type="text" id="placa${i}">
       </div>
     `;
   }
+  ativarSalvamento("#veiculosEnvolvidos");
 }
 
 function mostrarOutro(i) {
@@ -331,7 +362,15 @@ function gerarPDF() {
   const data = document.getElementById("data").value;
   doc.save(`pericia_transito_${data}.pdf`);
 }
+window.addEventListener("load", () => {
+  if (localStorage.getItem("qtdEnvolvidos")) {
+    gerarEnvolvidos();
+  }
 
+  if (localStorage.getItem("veicEnvolvidos")) {
+    gerarVeiculosEnvolvidos();
+  }
+});
 function limparDados() {
 
 const confirmar = confirm(
