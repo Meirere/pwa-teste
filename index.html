@@ -30,6 +30,13 @@
       padding: 10px;
       border-radius: 5px;
     }
+    
+    .titulo-vestigios {
+      background: #dc3545;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
 
     h2 {
       background: #dc3545;
@@ -210,16 +217,18 @@
     <label>Quantidade de veículos</label>
     <input type="number" id="veicEnvolvidos" min="1">
 
-    <button type="button" class="btn-veiculos" onclick="gerarVeiculosEnvolvidos()">Gerar veículos envolvidos</button>
+    <button type="button" class="btn-veiculos" onclick="gerarVeiculosEnvolvidos()">+ Gerar veículos envolvidos</button>
 
     <div id="veiculosEnvolvidos"></div>
+
+<h3 class="titulo-vestigios">Exames Periciais</h3>
 
 <label>Vestígios na via</label>
 <textarea id="via"></textarea>
 
 <label>Vestígios nos cadáveres</label>
 <textarea id="cadaver"></textarea>
-
+  
 <button type="button"
         class="btn-limpar"
         onclick="limparDados()">
@@ -316,13 +325,13 @@ function gerarVeiculosEnvolvidos() {
           <input type="text" id="outroTipo${i}" placeholder="automóvel, carroça, bicicleta, etc" >
         </div>
         
-        <label>Sentido de tráfego veículo${i}</label>
+        <label>Sentido de tráfego veículo ${i}</label>
         <input type="text" id="sentidoVeic${i}">
-
-        <label>Vestígio veículo${i}</label>
+    
+        <label>Vestígio veículo ${i}</label>
         <input type="text" id="vestigios${i}">
         
-        <label>Placa do Envolvido ${i}</label>
+        <label>Placa do veículo ${i}</label>
         <input type="text" id="placa${i}">
       </div>
     `;
