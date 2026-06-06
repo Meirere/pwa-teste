@@ -337,6 +337,10 @@ function gerarVeiculosEnvolvidos() {
     `;
   }
   ativarSalvamento("#veiculosEnvolvidos");
+
+  for (let i = 1; i <= qtd; i++) {
+   mostrarOutro(i);
+  }
 }
 
 function mostrarOutro(i) {
