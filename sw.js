@@ -1,4 +1,4 @@
-const CACHE_NAME = 'laudo-cache-v12';
+const CACHE_NAME = 'laudo-cache-v13';
 
 const urlsToCache = [
   './',
